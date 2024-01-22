@@ -57,7 +57,7 @@ void generateWallet(uint8_t *pk) {
   delay(1500);
   Serial.println("Public address: " + walletAddress);
   delay(1500);
-  Serial.println("Private Key: "  + privateKey);
+  //Serial.println("Private Key: "  + privateKey);
 }
 
 void setup() {
