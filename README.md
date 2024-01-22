@@ -31,15 +31,15 @@ An arduino cold ethereum wallet implementing Shamir Secret Sharing (SSS), intend
 Due to memory limitations, the "cold" wallet part of this project has four Arduino sketch files, which put the microcontroller in a particular "mode". The four modes are:
 
   1) Private key generation: **create_wallet_mode.ino**
-      >> The public wallet address is displayed
-      >> The private key is written to EEPROM
-      >> The private key can be displayed by uncommenting in the sketch, in case a separate encrypted backup is needed
+      >> The public wallet address is displayed.
+      >> The private key is written to EEPROM.
+      >> The private key can be displayed by uncommenting in the sketch, in case a separate encrypted backup is needed.
   3) Private key splitting into three Shamir Secret Sharing (SSS) shares: **shamir_split_key_mode.ino**
       >> The SSS share with index zero is written to EEPROM, overwriting the private key. The zero-index key isn't revealed to the user, and is always sitting in EEPROM for subsequent modes (until a new wallet is generated).
-      >> The two remaining SSS shares are shown the user. One is the "primary" share, and one is a "backup"
+      >> The two remaining SSS shares are shown the user. One is the "primary" share, and one is a "backup".
       >> The cold wallet would be in this mode most of the time, only being called for private key recovery and transaction hash signing. 
   4) Private key recovery: **shamir_recover_key_mode.ino**
-      >> The user provides the primary SSS share, (e.g. `<237b...f9fe>`) and the private key is recovered and written to EEPROM
+      >> The user provides the primary SSS share, (e.g. `<237b...f9fe>`) and the private key is recovered and written to EEPROM.
       >> To use the backup share instead, line 179 would be changed to `uint8_t recovery_share_indexes[2] = {0,2};`
   5) Transaction hash signing: **sign_signature_mode.ino**
       >> The user provides a transaction hash to be signed (e.g. `<3327...ac9fe>`). Once the hash is signed the signature is displayed and the private key is cleared from EEPROM. 
